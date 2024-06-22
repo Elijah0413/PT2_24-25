@@ -4,6 +4,7 @@
 #include "meal_detail.hpp"
 #include "login_detail.hpp"
 #include "payment_detail.hpp"
+#include "CustomerDetail.hpp"
 #define MAX_NUMBER 100
 using namespace std;
 
@@ -14,6 +15,7 @@ int main(){
     char ans = 'F';
     string Menu;
     Meal meals(num);
+    Customer customer;
     int order[MAX_NUMBER];
     Payment pay;
     Login user;
@@ -40,7 +42,7 @@ Login:
         goto adminLogin;
         break;
     case 2:
-        goto customerLogin;
+        goto customerSign;
         break;
     default:
         goto end;
@@ -96,7 +98,41 @@ adminMenu:
             break;
         }
     }
-    //Log in as customer
+
+
+    
+customerSign:
+{
+    char answerBack='P';
+    cout<<right;
+    cout<<setw(15)<<"Customer Register//Sign Up..."<<endl;
+    cout<<endl;
+    cout<<left;
+    cout<<"1. Register"<<endl;
+    cout<<"2. Sign Up"<<endl;
+    cout<<"3. Exit"<<endl;
+    cout<<"\n\nEnter the action to perform : ";
+    cin>>customerChoice;
+
+    switch (customerChoice)
+    {
+    case 1:
+        goto CustomerRegister;
+    case 2:
+        goto customerLogin;
+    default:
+        goto end;
+        break;
+    }        
+}
+CustomerRegister:
+{
+    cout << "Start Register....\n";
+    customer.registerCustomer();
+    goto customerMenu;
+
+}
+//Log in as customer
 customerLogin:
     {
         bool loginAnswer=false;
@@ -106,11 +142,10 @@ customerLogin:
         {
             cout<<endl;
             cout<<endl;
-            goto customerLogin;
+            goto customerSign;
         }
         cout<<endl;
     }
-    goto customerMenu;
 
 customerMenu:
 {
@@ -119,18 +154,24 @@ customerMenu:
     cout<<setw(15)<<"Menu"<<endl;
     cout<<endl;
     cout<<left;
-    cout<<"1. Register"<<endl;
-    cout<<"2. Making order"<<endl;
-    cout<<"3. Exit"<<endl;
+    cout<<"1. View Menu"<<endl;
+    cout<<"2. Make Order"<<endl;
+    cout<<"3. Review Order"<<endl;
+    cout<<"4. Checkout Order"<<endl;
+    cout<<"5. Exit"<<endl;
     cout<<"\n\nEnter the action to perform : ";
     cin>>customerChoice;
 
     switch (customerChoice)
     {
     case 1:
-        goto DishModify;
+        goto CustomerRegister;
     case 2:
         goto MakeOrder;
+    case 3:
+        goto MealChecking;
+    case 4:
+        goto customerLogin;
     default:
         goto end;
         break;
